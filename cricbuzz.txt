@@ -1,0 +1,13 @@
+import requests
+from bs4 import BeautifulSoup
+
+def web_crawler():
+    url = 'http://www.cricbuzz.com/cricket-match/live-scores'
+    source_code = requests.get(url)
+    plain_txt = source_code.text
+    soup = BeautifulSoup(plain_txt)
+    for x in soup.findAll('div',{'class':'cb-lv-scrs-col'}):
+        title = x.string
+        print(title)
+
+web_crawler()

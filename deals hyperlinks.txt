@@ -1,0 +1,20 @@
+import requests
+from bs4 import BeautifulSoup
+
+def web_crawler(max_pages):
+    page=2
+    while page <= max_pages:
+        url = 'https://www.desidime.com/forums/hot-deals-online?page=' + str(page)
+        source_code=requests.get(url)
+        plain_txt=source_code.text
+        soup=BeautifulSoup(plain_txt)
+
+        for x in soup.findAll('a',rel='bookmark'):
+            title=x.string
+            href=x.get('href')
+            print(title)
+
+        page = page + 1
+
+web_crawler(4)
+
